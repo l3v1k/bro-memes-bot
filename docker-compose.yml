@@ -1,0 +1,43 @@
+services:
+  bot:
+    build: .
+    init: true
+    restart: unless-stopped
+    container_name: bro-memes-bot
+    env_file: .env
+    volumes:
+      - ./.netrc:/app/.netrc
+      - cache:/app/cache
+    depends_on:
+      cobalt:
+        condition: service_healthy
+
+  cobalt:
+    image: ghcr.io/imputnet/cobalt:10
+    init: true
+    read_only: true
+    restart: unless-stopped
+    container_name: cobalt-api
+    ports:
+      - "127.0.0.1:9000:9000"
+    environment:
+      API_URL: "http://127.0.0.1:9000"
+      API_KEY_URL: "file:///app/keys.json"
+      API_AUTH_REQUIRED: 1
+    volumes:
+      - ./keys.json:/app/keys.json:ro
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:9000/"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    labels:
+      - com.centurylinklabs.watchtower.scope=cobalt
+
+networks:
+  default:
+    name: bro-memes-net
+    driver: bridge
+
+volumes:
+  cache:

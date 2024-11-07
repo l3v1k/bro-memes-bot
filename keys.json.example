@@ -1,0 +1,8 @@
+{
+  "keys": [
+    {
+      "key": "${COBALT_API_KEY}",
+      "name": "bot"
+    }
+  ]
+} 
