@@ -22,9 +22,9 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 # Add virtual environment binaries to PATH
 ENV PATH="/app/.venv/bin:$PATH"
 
-# Setup entrypoint script
-COPY docker-entrypoint.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+# # Setup entrypoint script
+# COPY docker-entrypoint.sh /usr/local/bin/
+# RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 ENTRYPOINT []
 CMD ["python", "-m", "src.bro_memes_bot.bot"]
