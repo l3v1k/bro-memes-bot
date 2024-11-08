@@ -101,11 +101,10 @@ class MediaDownloader:
             temp_file = Path(tempfile.gettempdir()) / media_info['filename']
             
             async with httpx.AsyncClient() as client:
-                async with client.stream('GET', media_info['url']) as response:
-                    response.raise_for_status()
-                    async with temp_file.open('wb') as f:
-                        async for chunk in response.aiter_bytes():
-                            f.write(chunk)
+                response = await client.get(media_info['url'])
+                response.raise_for_status()
+                # Use synchronous write since we're writing the entire content at once
+                temp_file.write_bytes(response.content)
             
             return {
                 'file_path': str(temp_file),
