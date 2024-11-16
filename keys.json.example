@@ -1,8 +1,5 @@
 {
-  "keys": [
-    {
-      "key": "${COBALT_API_KEY}",
-      "name": "bot"
+    "some-uuid-string-goes-thisplace": {
+        "name": "My API"
     }
-  ]
-} 
+}

@@ -171,7 +171,13 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
 
 def main() -> None:
     """Start the bot."""
-    application = Application.builder().token(TOKEN).build()
+    # Configure the application to handle multiple updates concurrently
+    application = (
+        Application.builder()
+        .token(TOKEN)
+        .concurrent_updates(5)
+        .build()
+    )
 
     # Command handlers - only respond in private chats
     application.add_handler(CommandHandler("start", start_command))
@@ -180,8 +186,12 @@ def main() -> None:
     # Message handler - process all text messages but handle them differently based on chat type
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
 
-    # Start the Bot
-    application.run_polling(allowed_updates=Update.ALL_TYPES)
+    # Start the Bot with specific allowed updates
+    application.run_polling(
+        allowed_updates=Update.ALL_TYPES,
+        # Increase the pool timeout for long-running operations
+        pool_timeout=60
+    )
 
 if __name__ == "__main__":
     main() 

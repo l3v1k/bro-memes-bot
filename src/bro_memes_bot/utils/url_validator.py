@@ -15,7 +15,7 @@ class URLValidator:
     # URL patterns for different platforms
     PATTERNS = {
         MediaService.INSTAGRAM: r'(?:https?:\/\/)?(?:www\.)?instagram\.com(?:\/[^\/]+)?\/(?:p|reel)\/([^\/?#&]+)',
-        MediaService.TIKTOK: r'(?:https?:\/\/)?(?:www\.|vm\.)?tiktok\.com\/(?:@[\w.-]+\/video\/\d+|[\w.-]+)',
+        MediaService.TIKTOK: r'(?:https?:\/\/)?(?:www\.|vm\.|vt\.)?tiktok\.com\/(?:@[\w.-]+\/video\/\d+|[\w.-]+)',
         MediaService.YOUTUBE: r'(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:shorts\/|watch\?v=)|youtu\.be\/)([a-zA-Z0-9_-]+)',
         MediaService.TWITTER: r'(?:https?:\/\/)?(?:www\.)?(?:twitter\.com|x\.com)\/(?:\w+)\/status\/(\d+)'
     }
